@@ -6,7 +6,6 @@ from ten_thousand.game_logic import GameLogic
 # A sequence of correct length is returned
 # Each item in sequence is an integer with value between 1 and 6
 
-
 def test_roll_six():
     roll = GameLogic.roll_dice(6)
     assert len(roll) == 6
