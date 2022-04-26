@@ -1,6 +1,6 @@
 # Python 401d1818
 ## Labs(06-09): Ten Thousand
-### Authors: 
+### Authors: Tyler Egashira - Steve Ngo
 
 ## Lab: 06
 ### Setup
@@ -72,6 +72,7 @@ When rolling 1 to 6 dice ensure:
 ### Stretch:
 - Research `parametrized tests in PyTest`
 - Research `Behavior Driven Development`
+
 
 <!--- 
 ## Lab: 07
