@@ -1,5 +1,5 @@
 import pytest
-from ten_thousand.banker import Banker
+from ten_thousand.version_1.banker import Banker
 
 pytestmark = [pytest.mark.version_1, pytest.mark.version_2]
 

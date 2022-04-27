@@ -74,7 +74,7 @@ When rolling 1 to 6 dice ensure:
 - Research `Behavior Driven Development`
 
 
-<!--- 
+
 ## Lab: 07
 Extend Ten Thousand game started in previous class to get the game in playable state.
 
@@ -95,6 +95,7 @@ Extend Ten Thousand game started in previous class to get the game in playable s
   * **NOTE**: Feel free to add tests, but you are required to pass all existing tests.
 * The tests are the official documentation of the features for the day.
 
+<!--- 
 ## Lab: 08
 Shore up the core functionality of game by allowing users to set aside scoring dice and continuing their turn.
 Then handle cheaters and/or confused players who are skirting the rules.
