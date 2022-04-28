@@ -50,6 +50,10 @@ class Game:
             self.keep_dice = []
             for j in keep_or_quit:
                 self.keep_dice.append(int(j))
+                
+            print(f"{self.keep_dice}")
+            #self.check_cheater()
+
             # (TODO: Compare keep vs roll and amounts to determine if person is cheating. See check cheater module at bottom for idea, but I couldn't get it to work.)
             self.dice_count -= len(self.keep_dice)
             self.banker.shelf(self.scorer.calculate_score(self.keep_dice))
@@ -57,7 +61,7 @@ class Game:
             print('(r)oll again, (b)ank your points or (q)uit:') 
             r_b_q = input("> ")
             if r_b_q == "r":
-                if self.dice_count is 0:
+                if self.dice_count == 0:
                     self.dice_count = 6
                 self.play_round()
             if r_b_q == "b":
@@ -74,12 +78,17 @@ class Game:
         return final
 
     def check_cheater(self):
-        # numcheck = (1,2,3,4,5,6)
-        # for x in numcheck:
-        #     if self.keep_dice.count(x) != self.rolled_dice.count(x):
-        #         print("Cheater!!! Or possibly made a  typo...")
-        #         self.keep_or_quit()
+        check_list = self.keep_dice
+        check_rolled = self.rolled_dice
+
+        
         pass
+        #for i in check_rolled:
+            #if i in check_list:
+                # check_list.remove(i)
+            #else:
+                #print("Cheater!!! Or possibly made a  typo...")
+                #self.keep_or_quit()
 
     def zilch(self):
         # check rolled dice vs score sheet, if score sheet = 0 run zilch
