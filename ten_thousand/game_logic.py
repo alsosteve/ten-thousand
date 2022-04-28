@@ -68,37 +68,28 @@ class GameLogic:
 
     @staticmethod
     def validate_keepers(roll, keepers):
-        # version_3
-
-        # pro tip: you can do some math operations with counters
-        # check https://docs.python.org/3/library/collections.html#collections.Counter
         keeper_counter = Counter(keepers)
         roll_counter = Counter(roll)
 
-        # a "valid" result is an empty Counter result
         result = keeper_counter - roll_counter
 
-        # an empty Counter is falsy, so use "not" to flip it
         return not result
 
     @staticmethod
     def get_scorers(dice):
-        # version_3
 
-        all_dice_score = GameLogic.calculate_score(dice)
+        dice_score = GameLogic.calculate_score(dice)
 
-        if all_dice_score == 0:
+        if dice_score == 0:
             return tuple()
 
         scorers = []
-
-        # for i in range(len(dice)):
 
         for i, val in enumerate(dice):
             sub_roll = dice[:i] + dice[i + 1 :]
             sub_score = GameLogic.calculate_score(sub_roll)
 
-            if sub_score != all_dice_score:
+            if sub_score != dice_score:
                 scorers.append(val)
 
         return tuple(scorers)
