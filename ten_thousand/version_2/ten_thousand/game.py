@@ -39,6 +39,8 @@ class Game:
     def keep_or_quit(self):                 
         roll_string = self.str_formatter(self.rolled_dice)
         print(f"*** {roll_string} ***")
+        if self.scorer.calculate_score(self.rolled_dice) == 0:
+            self.zilch()
         print("Enter dice to keep, or (q)uit:")
         keep_or_quit = input("> ")
         if keep_or_quit == "q":
@@ -78,6 +80,20 @@ class Game:
         #         print("Cheater!!! Or possibly made a  typo...")
         #         self.keep_or_quit()
         pass
+
+    def zilch(self):
+        # check rolled dice vs score sheet, if score sheet = 0 run zilch
+        print("****************************************")
+        print("**        Zilch!!! Round over         **")
+        print("****************************************")
+        
+        print(f"You banked {self.banker.balance} points in round {self.round_}")
+        print(f"Total score is {self.banker.balance} points")
+        
+        self.dice_count = 6
+        self.round_ += 1
+        print(f"Starting round {self.round_}")
+        self.play_round()
 
 if __name__ == "__main__":
     game = Game()
