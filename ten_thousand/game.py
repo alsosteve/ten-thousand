@@ -8,7 +8,7 @@ else:
 
 class Game:
 
-    def __init__(self):
+    def __init__(self, num_rounds=20):
         self.banker = Banker()
         self.scorer = GameLogic()
         self.roller = None
@@ -16,9 +16,13 @@ class Game:
         self.dice_count = 0
         self.keep_dice = []
         self.rolled_dice = None
+        self.num_games = None
+        self.num_rounds = num_rounds
 
-    def play(self, roller=GameLogic.roll_dice):
+    def play(self, num_games=1, roller=GameLogic.roll_dice):
         self.roller = roller
+        self.num_games = num_games
+
         print("Welcome to Ten Thousand")
         print("(y)es to play or (n)o to decline")
         response = input("> ")
@@ -31,6 +35,7 @@ class Game:
             while True:
                 self.dice_count = 6
                 self.round_ += 1
+                self.num_rounds -= 1
                 print(f"Starting round {self.round_}")
                 self.play_round()
     
@@ -56,7 +61,6 @@ class Game:
                 
             self.check_cheater()
 
-            # (TODO: Compare keep vs roll and amounts to determine if person is cheating. See check cheater module at bottom for idea, but I couldn't get it to work.)
             self.dice_count -= len(self.keep_dice)
             self.banker.shelf(self.scorer.calculate_score(self.keep_dice))
             print(f"You have {self.banker.shelved} unbanked points and {self.dice_count} dice remaining")
@@ -70,9 +74,10 @@ class Game:
                 banked_points = self.banker.bank()
                 print(f"You banked {banked_points} points in round {self.round_}")
                 print(f"Total score is {self.banker.balance} points")
+                if self.num_rounds == 0:
+                    self.game_end()
             if r_b_q == "q":
-                print(f"Thanks for playing. You earned {self.banker.balance} points")
-                sys.exit()
+                self.game_end()
               
     def str_formatter(self, string):
         stringify = str(string)
@@ -80,20 +85,23 @@ class Game:
         return final
 
     def check_cheater(self):
-        check_list = self.keep_dice
-        check_rolled = [x for x in self.rolled_dice]
-        #print(f"rolled dice: {check_rolled}")
-        #print(f"keep dice: {check_list}")
+        # check_list = self.keep_dice
+        # check_rolled = [x for x in self.rolled_dice]
+        # #print(f"rolled dice: {check_rolled}")
+        # #print(f"keep dice: {check_list}")
 
-        for i in check_list:
-            if i in check_rolled:
-                check_rolled.remove(i)
-            else:
-                print("Cheater!!! Or possibly made a typo...")
-                self.keep_or_quit()
+        # for i in check_list:
+        #     if i in check_rolled:
+        #         check_rolled.remove(i)
+        #     else:
+        if self.scorer.validate_keepers(self.rolled_dice, self.keep_dice) is False:    
+            print("Cheater!!! Or possibly made a typo...")
+            self.keep_or_quit()
 
     def zilch(self):
-        # check rolled dice vs score sheet, if score sheet = 0 run zilch
+        '''
+        check rolled dice vs score sheet, if score sheet = 0 run zilch
+        '''
         print("****************************************")
         print("**        Zilch!!! Round over         **")
         print("****************************************")
@@ -105,6 +113,10 @@ class Game:
         self.round_ += 1
         print(f"Starting round {self.round_}")
         self.play_round()
+
+    def game_end(self):
+        print(f"Thanks for playing. You earned {self.banker.balance} points")
+        sys.exit()
 
 if __name__ == "__main__":
     game = Game()
