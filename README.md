@@ -112,7 +112,8 @@ Then handle cheaters and/or confused players who are skirting the rules.
 ### Stretch Goals
 * Identify features to add and propose idea to client.
 * Identify gaps in current test suite and add tests to expose bugs.
-<!--- 
+
+
 ## Lab: 09
 Add an AI bot to play the game.
 
@@ -129,4 +130,3 @@ Add an AI bot to play the game.
   * **NOTE** the code for `BaseBot` class is supplied for reference, but your custom code will be in the overridden `_roll_bank_or_quit` and `_enter_dice` methods.
 * User should be able to see your bot play by executing `bots.py` from terminal.
 * Application should implement features from previous classes
---->
