@@ -35,7 +35,6 @@ class Game:
             while True:
                 self.dice_count = 6
                 self.round_ += 1
-                self.num_rounds -= 1
                 print(f"Starting round {self.round_}")
                 self.play_round()
     
@@ -52,8 +51,7 @@ class Game:
         print("Enter dice to keep, or (q)uit:")
         keep_or_quit = input("> ").replace(" ", "")
         if keep_or_quit == "q":
-            print(f"Thanks for playing. You earned {self.banker.balance} points")
-            sys.exit()
+            self.game_end()
         else:
             self.keep_dice = []
             for j in keep_or_quit:
@@ -65,17 +63,22 @@ class Game:
             self.banker.shelf(self.scorer.calculate_score(self.keep_dice))
             print(f"You have {self.banker.shelved} unbanked points and {self.dice_count} dice remaining")
             print('(r)oll again, (b)ank your points or (q)uit:') 
+
             r_b_q = input("> ")
+
             if r_b_q == "r":
                 if self.dice_count == 0:
                     self.dice_count = 6
                 self.play_round()
+
             if r_b_q == "b":
                 banked_points = self.banker.bank()
                 print(f"You banked {banked_points} points in round {self.round_}")
                 print(f"Total score is {self.banker.balance} points")
+                self.num_rounds -= 1
                 if self.num_rounds == 0:
                     self.game_end()
+
             if r_b_q == "q":
                 self.game_end()
               
@@ -108,9 +111,15 @@ class Game:
         
         print(f"You banked {self.banker.balance} points in round {self.round_}")
         print(f"Total score is {self.banker.balance} points")
+        self.num_rounds -= 1
+        if self.num_rounds == 0:
+            self.game_end()
         
         self.dice_count = 6
         self.round_ += 1
+
+        self.banker.clear_shelf()
+
         print(f"Starting round {self.round_}")
         self.play_round()
 
